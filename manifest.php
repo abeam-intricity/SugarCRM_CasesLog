@@ -55,6 +55,21 @@ $installdefs = array (
       'from' => '<basepath>/SugarModules/modules/CLOG_CasesLog',
       'to' => 'modules/CLOG_CasesLog',
     ),
+    1 => array (
+      'from' => '<basepath>/custom/modules/Cases/CasesLogHook.php',
+      'to' => 'custom/modules/Cases/CasesLogHook.php',
+    ),
+  ),
+  'logic_hooks' => array(
+    array(
+      'module' => 'Cases',
+      'hook' => 'before_save',
+      'order' => 99,
+      'description' => 'Track which users have modified a case each day.',
+      'file' => 'custom/modules/Cases/CasesLogHook.php',
+      'class' => 'CasesLogHook',
+      'function' => 'cases_log_hook',
+    ),
   ),
   'language' => array (
     0 => array (
