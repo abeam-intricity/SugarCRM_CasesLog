@@ -26,9 +26,17 @@ class CasesLogHook {
 			// Create new log entry
 			$logBean = BeanFactory::newBean('CLOG_CasesLog');
 			$logBean->log_date = date('Y-m-d');
-			$logBean->clog_caseslog_casescases_ida = $bean->id;
-			$logBean->clog_caseslog_usersusers_ida = $bean->modified_user_id;
 			$logBean->save();
+			
+			$user_link = 'clog_caseslog_users';
+			if ($logBean->load_relationship($user_link)) {
+				$logBean->$user_link->add($bean->modified_user_id);
+			}
+			
+			$case_link = 'clog_caseslog_cases';
+			if ($logBean->load_relationship($case_link)) {
+				$logBean->$case_link->add($bean->id);
+			}
 		}
 	}
 } 
